@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Плай — зворотний зв'язок</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 24px;
+      display: grid;
+      place-items: center;
+      background: #f4f6f8;
+      color: #17202a;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+
+    .card {
+      width: min(560px, 100%);
+      padding: 34px;
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.07);
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 30px;
+    }
+
+    .sub {
+      margin-bottom: 22px;
+      color: #667085;
+      line-height: 1.5;
+    }
+
+    .desk {
+      display: none;
+      margin-bottom: 18px;
+      padding: 10px;
+      background: #f2f4f7;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px 18px;
+      border: 0;
+      border-radius: 14px;
+      background: #111827;
+      color: white;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .note {
+      margin-top: 16px;
+      color: #98a2b3;
+      font-size: 13px;
+    }
+
+    .bad {
+      color: #b42318;
+    }
+  </style>
+</head>
+
+<body>
+
+<main class="card">
+
+  <h1>Допоможіть нам стати кращими</h1>
+
+  <p class="sub">
+    Поділіться враженнями про прокат Плай.
+    Це займе лише кілька хвилин.
+  </p>
+
+  <div id="desk" class="desk"></div>
+
+  <button id="go">
+    Залишити відгук
+  </button>
+
+  <p id="note" class="note">
+    Дякуємо за ваш зворотний зв'язок.
+  </p>
+
+</main>
+
+<script>
+
+const FORM =
+"https://docs.google.com/forms/d/e/1FAIpQLSfbnl0GlajAy_hIC9IBfGmGCIbb_aiW0QzhgofQ7lSlc_6elg/viewform";
+
+const params = new URLSearchParams(window.location.search);
+
+const desk =
+(params.get("desk") || "").toUpperCase();
+
+const validDesk =
+/^P[12]-T0[1-8]$/.test(desk);
+
+if (validDesk) {
+
+  document.getElementById("desk").style.display = "block";
+
+  document.getElementById("desk").textContent =
+  "Код каси: " + desk;
+
+}
+
+else if (desk) {
+
+  document.getElementById("note").innerHTML =
+  '<span class="bad">Некоректний код каси.</span>';
+
+}
+
+document.getElementById("go").onclick = function () {
+
+  const separator =
+  FORM.includes("?") ? "&" : "?";
+
+  window.location.href =
+  FORM +
+  separator +
+  "desk=" +
+  encodeURIComponent(desk);
+
+};
+
+</script>
+
+</body>
+</html>
