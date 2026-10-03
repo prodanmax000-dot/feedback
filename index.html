@@ -1,143 +1,307 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Плай — зворотний зв'язок</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Плай — оцінка прокату</title>
 
   <style>
-    * { box-sizing: border-box; }
-
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
-      min-height: 100vh;
-      padding: 24px;
-      display: grid;
-      place-items: center;
-      background: #f4f6f8;
-      color: #17202a;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      padding: 0;
     }
 
-    .card {
-      width: min(560px, 100%);
-      padding: 34px;
-      background: white;
-      border-radius: 24px;
-      box-shadow: 0 12px 40px rgba(0,0,0,.07);
+    body {
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top, #17324d 0%, #0b1d2d 42%, #06111c 100%);
+      color: white;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 24px 18px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
       text-align: center;
     }
 
+    /* ЛОГОТИП */
+
+    .logo-circle {
+      width: 160px;
+      height: 160px;
+
+      margin: 0 auto 32px;
+
+      background: white;
+      border-radius: 50%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      box-shadow:
+        0 18px 45px rgba(0,0,0,0.35),
+        0 0 0 1px rgba(255,255,255,0.08);
+    }
+
+    .logo-circle img {
+      width: 78%;
+      height: 78%;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* ЗАГОЛОВОК */
+
     h1 {
-      margin: 0 0 12px;
-      font-size: 30px;
+      font-size: 34px;
+      line-height: 1.15;
+      font-weight: 750;
+
+      max-width: 560px;
+      margin: 0 auto 12px;
     }
 
-    .sub {
-      margin-bottom: 22px;
-      color: #667085;
-      line-height: 1.5;
-    }
-
-    .desk {
-      display: none;
-      margin-bottom: 18px;
-      padding: 10px;
-      background: #f2f4f7;
-      border-radius: 12px;
-      font-weight: 600;
-    }
-
-    button {
-      width: 100%;
-      padding: 16px 18px;
-      border: 0;
-      border-radius: 14px;
-      background: #111827;
-      color: white;
+    .subtitle {
       font-size: 17px;
-      font-weight: 700;
+      line-height: 1.45;
+      color: rgba(255,255,255,0.68);
+
+      margin-bottom: 38px;
+    }
+
+    /* БЛОК ОЦІНКИ */
+
+    .rating-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.10);
+
+      border-radius: 26px;
+
+      padding: 24px 14px 20px;
+
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+
+      box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+    }
+
+    .rating-title {
+      font-size: 15px;
+      color: rgba(255,255,255,0.72);
+      margin-bottom: 22px;
+    }
+
+    .ratings {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+
+    .rating {
+      border: none;
+      background: transparent;
+      color: white;
+
       cursor: pointer;
+
+      padding: 8px 2px 10px;
+
+      border-radius: 18px;
+
+      transition:
+        transform 0.18s ease,
+        background 0.18s ease;
     }
 
-    .note {
-      margin-top: 16px;
-      color: #98a2b3;
-      font-size: 13px;
+    .rating:hover {
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-3px);
     }
 
-    .bad {
-      color: #b42318;
+    .rating:active {
+      transform: scale(0.94);
     }
+
+    .emoji {
+      display: block;
+
+      font-size: 48px;
+      line-height: 1;
+
+      margin-bottom: 11px;
+
+      transition: transform 0.18s ease;
+    }
+
+    .rating:hover .emoji {
+      transform: scale(1.12);
+    }
+
+    .label {
+      display: block;
+
+      font-size: 12px;
+      line-height: 1.2;
+
+      color: rgba(255,255,255,0.78);
+    }
+
+    .number {
+      display: block;
+
+      margin-top: 6px;
+
+      font-size: 11px;
+      font-weight: 700;
+
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* МОБІЛЬНА ВЕРСІЯ */
+
+    @media (max-width: 500px) {
+
+      body {
+        padding: 24px 12px;
+      }
+
+      .logo-circle {
+        width: 150px;
+        height: 150px;
+        margin-bottom: 30px;
+      }
+
+      h1 {
+        font-size: 29px;
+      }
+
+      .subtitle {
+        font-size: 16px;
+        margin-bottom: 30px;
+      }
+
+      .rating-card {
+        padding: 22px 6px 18px;
+        border-radius: 24px;
+      }
+
+      .ratings {
+        gap: 2px;
+      }
+
+      .emoji {
+        font-size: 42px;
+      }
+
+      .label {
+        font-size: 10px;
+      }
+
+      .number {
+        font-size: 10px;
+      }
+    }
+
   </style>
 </head>
 
 <body>
 
-<main class="card">
+  <main class="container">
 
-  <h1>Допоможіть нам стати кращими</h1>
+    <!-- ЛОГОТИП ПЛАЙ -->
+    <!-- Файл логотипу поклади поруч з index.html під назвою logo.png -->
 
-  <p class="sub">
-    Поділіться враженнями про прокат Плай.
-    Це займе лише кілька хвилин.
-  </p>
+    <div class="logo-circle">
+      <img src="logo.png" alt="Плай">
+    </div>
 
-  <div id="desk" class="desk"></div>
 
-  <button id="go">
-    Залишити відгук
-  </button>
+    <h1>
+      Як пройшла ваша оренда спорядження?
+    </h1>
 
-  <p id="note" class="note">
-    Дякуємо за ваш зворотний зв'язок.
-  </p>
+    <p class="subtitle">
+      Оберіть оцінку — це займе лише кілька секунд
+    </p>
 
-</main>
 
-<script>
+    <section class="rating-card">
 
-const FORM =
-"https://docs.google.com/forms/d/e/1FAIpQLSfbnl0GlajAy_hIC9IBfGmGCIbb_aiW0QzhgofQ7lSlc_6elg/viewform";
+      <div class="rating-title">
+        Оцініть ваші враження
+      </div>
 
-const params = new URLSearchParams(window.location.search);
+      <div class="ratings">
 
-const desk =
-(params.get("desk") || "").toUpperCase();
+        <button class="rating" onclick="selectRating(1)">
+          <span class="emoji">😡</span>
+          <span class="label">Дуже<br>погано</span>
+          <span class="number">1</span>
+        </button>
 
-const validDesk =
-/^P[12]-T0[1-8]$/.test(desk);
+        <button class="rating" onclick="selectRating(2)">
+          <span class="emoji">🙁</span>
+          <span class="label">Погано</span>
+          <span class="number">2</span>
+        </button>
 
-if (validDesk) {
+        <button class="rating" onclick="selectRating(3)">
+          <span class="emoji">😐</span>
+          <span class="label">Нормально</span>
+          <span class="number">3</span>
+        </button>
 
-  document.getElementById("desk").style.display = "block";
+        <button class="rating" onclick="selectRating(4)">
+          <span class="emoji">🙂</span>
+          <span class="label">Добре</span>
+          <span class="number">4</span>
+        </button>
 
-  document.getElementById("desk").textContent =
-  "Код каси: " + desk;
+        <button class="rating" onclick="selectRating(5)">
+          <span class="emoji">😍</span>
+          <span class="label">Чудово</span>
+          <span class="number">5</span>
+        </button>
 
-}
+      </div>
 
-else if (desk) {
+    </section>
 
-  document.getElementById("note").innerHTML =
-  '<span class="bad">Некоректний код каси.</span>';
+  </main>
 
-}
 
-document.getElementById("go").onclick = function () {
+  <script>
 
-  const separator =
-  FORM.includes("?") ? "&" : "?";
+    function selectRating(rating) {
 
-  window.location.href =
-  FORM +
-  separator +
-  "desk=" +
-  encodeURIComponent(desk);
+      /*
+        Поки що тут нічого не відправляємо.
 
-};
+        На наступному етапі сюди підключимо:
 
-</script>
+        1. оцінку 1–5;
+        2. код каси P1-T01 ... P2-T08;
+        3. Session ID;
+        4. перехід до наступних запитань;
+        5. передачу даних у Google Sheets через Apps Script.
+      */
+
+      console.log("Обрана оцінка:", rating);
+
+    }
+
+  </script>
 
 </body>
 </html>
